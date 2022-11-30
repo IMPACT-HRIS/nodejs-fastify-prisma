@@ -1,0 +1,99 @@
+{
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "postinstall": "test -n \"$NO_POSTINSTALL\" || npm run prisma:gen",
+    "dev": "cross-env NODE_ENV=development node-dev src/index.ts --require dotenv-flow/config --require tsconfig-paths/register",
+    "build": "node build.mjs",
+    "start": "node --enable-source-maps --require dotenv-flow/config ./build/index.js -- --dotenv-flow-silent=true",
+    "type-check": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src/**",
+    "prettier": "prettier --write src/**",
+    "prisma:gen": "prisma generate",
+    "prisma:push": "node load-env.mjs prisma db push",
+    "prisma:seed": "node load-env.mjs prisma db seed",
+    "prisma:migrate:create": "node load-env.mjs prisma migrate dev --create-only",
+    "prisma:migrate:dev": "node load-env.mjs prisma migrate dev",
+    "prisma:migrate:reset": "node load-env.mjs prisma migrate reset",
+    "prisma:migrate:deploy": "node load-env.mjs prisma migrate deploy",
+    "prisma:sync": "npm run prisma:migrate:dev && npm run prisma:seed",
+    "prisma:dev": "npm run prisma:push && npm run prisma:seed"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "yarn": "use npm"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^8.3.0",
+    "@fastify/multipart": "^7.3.0",
+    "@fastify/session": "^10.0.2",
+    "@prisma/client": "^4.3.1",
+    "@socket.io/redis-adapter": "^7.2.0",
+    "argon2": "^0.28.2",
+    "aws-sdk": "^2.1023.0",
+    "axios": "^0.27.2",
+    "connect-redis": "^6.0.0",
+    "date-fns": "^2.25.0",
+    "dayjs": "^1.11.5",
+    "dotenv-flow": "^3.2.0",
+    "fastify": "^4.10.2",
+    "fastify-healthcheck": "^4.2.0",
+    "fastify-plugin": "^4.3.0",
+    "generate-password": "^1.7.0",
+    "http": "^0.0.1-security",
+    "ioredis": "^4.28.0",
+    "libphonenumber-js": "^1.10.13",
+    "lodash": "^4.17.21",
+    "ms": "^2.1.3",
+    "multer": "^1.4.5-lts.1",
+    "multer-s3": "^3.0.1",
+    "nanoid": "^3.1.30",
+    "nodemailer": "^6.8.0",
+    "pino-pretty": "^9.1.0",
+    "promise-retry": "^2.0.1",
+    "sanitize-html": "^2.5.3",
+    "sharp": "^0.29.2",
+    "socket.io": "^4.5.3",
+    "stream-mime-type": "^1.0.2",
+    "zod": "^3.19.1"
+  },
+  "devDependencies": {
+    "@esbuild-plugins/node-resolve": "^0.1.4",
+    "@types/connect-redis": "^0.0.17",
+    "@types/fastify-cors": "^2.1.0",
+    "@types/generate-password": "^1.5.1",
+    "@types/ioredis": "^4.28.1",
+    "@types/lodash": "^4.14.176",
+    "@types/ms": "^0.7.31",
+    "@types/multer": "^1.4.7",
+    "@types/multer-s3": "^3.0.0",
+    "@types/nodemailer": "^6.4.6",
+    "@types/promise-retry": "^1.1.3",
+    "@types/sanitize-html": "^2.5.0",
+    "@types/sharp": "^0.29.3",
+    "cross-env": "^7.0.3",
+    "cross-spawn": "^7.0.3",
+    "esbuild": "^0.13.12",
+    "eslint-config-sharpinit": "^0.2.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "node-dev": "^7.1.0",
+    "prettier": "^2.7.1",
+    "prettier-plugin-organize-imports": "^3.1.1",
+    "prisma": "^4.3.1",
+    "ts-loader": "^9.2.6",
+    "ts-node": "^10.4.0",
+    "tsconfig-paths": "^3.11.0",
+    "typescript": "^4.4.4"
+  },
+  "overrides": {
+    "altair-fastify-plugin": {
+      "fastify-plugin": "^4.3.0"
+    },
+    "nexus-prisma": {
+      "@prisma/client": "$@prisma/client"
+    }
+  }
+}

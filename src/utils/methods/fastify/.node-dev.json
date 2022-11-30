@@ -1,0 +1,9 @@
+{
+  "notify": false,
+  "respawn": true,
+  "extensions": {
+    "coffee": "coffee-script/register",
+    "ls": "LiveScript",
+    "ts": "ts-node/register/transpile-only"
+  }
+}

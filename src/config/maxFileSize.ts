@@ -1,0 +1,2 @@
+export const MAX_FILE_SIZE_IMAGE = 5_242_880 // 5MB
+export const MAX_FILE_SIZE_ATTACHMENT = 52_428_800 // 50MB

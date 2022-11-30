@@ -1,0 +1,15 @@
+{
+  "root": true,
+  "extends": ["hris"],
+  "parserOptions": {
+    "project": "./tsconfig.eslint.json"
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "extensions": [".js", ".jsx", ".json", ".ts", ".tsx"],
+        "map": [["~", "./src"]]
+      }
+    }
+  }
+}
