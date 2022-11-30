@@ -1,4 +1,5 @@
 import fastifyCookie from '@fastify/cookie'
+import fastifyCors from '@fastify/cors'
 import fastifySession from '@fastify/session'
 import createRedisStore from 'connect-redis'
 import Fastify from 'fastify'
@@ -6,6 +7,7 @@ import fastifyHealthcheck from 'fastify-healthcheck'
 import { ZodError } from 'zod'
 import { BaseError, InvalidInputErrorCode, UnknownErrorCode } from '~/class/Error'
 import {
+  ENV_APP_CORS,
   ENV_SESSION_COOKIE_DOMAIN,
   ENV_SESSION_COOKIE_PATH,
   ENV_SESSION_COOKIE_SAME_SITE,
@@ -35,6 +37,16 @@ export const initApp = async () => {
 
   const redis = await initRedis()
   app.log.info('Redis initialization complete')
+
+  app.register(fastifyCors, {
+    origin:
+      ENV_APP_CORS === '*'
+        ? '*'
+        : ENV_APP_CORS !== ''
+        ? ENV_APP_CORS.split(',').map((regex) => new RegExp(regex))
+        : false,
+    credentials: true,
+  })
 
   app.register(fastifyCookie)
   app.register(fastifySession, {
