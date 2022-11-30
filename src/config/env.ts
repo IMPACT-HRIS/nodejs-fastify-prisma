@@ -37,3 +37,7 @@ export const ENV_OBJECT_STORAGE_BUCKET_NAME = process.env.OBJECT_STORAGE_BUCKET_
 // Email
 export const ENV_SENDER_EMAIL = process.env.SENDER_EMAIL ?? ''
 export const ENV_SENDER_PASSWORD = process.env.SENDER_PASSWORD ?? ''
+
+// TH SMS
+export const ENV_TH_SMS_API_URL = process.env.TH_SMS_API_URL
+export const ENV_TH_SMS_API_KEY = process.env.TH_SMS_API_KEY
