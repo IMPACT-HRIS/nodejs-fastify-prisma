@@ -41,3 +41,7 @@ export const ENV_SENDER_PASSWORD = process.env.SENDER_PASSWORD ?? ''
 // TH SMS
 export const ENV_TH_SMS_API_URL = process.env.TH_SMS_API_URL
 export const ENV_TH_SMS_API_KEY = process.env.TH_SMS_API_KEY
+
+// SSO
+export const ENV_SSO_CLIENT_SECRET = process.env.SSO_CLIENT_SECRET
+export const ENV_SSO_URL = process.env.SSO_URL
