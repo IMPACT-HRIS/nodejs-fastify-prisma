@@ -1,25 +1,15 @@
 import fastifyCookie from '@fastify/cookie'
 import fastifyCors from '@fastify/cors'
-import fastifySession from '@fastify/session'
-import createRedisStore from 'connect-redis'
 import Fastify from 'fastify'
 import fastifyHealthcheck from 'fastify-healthcheck'
 import { ZodError } from 'zod'
 import { BaseError, InvalidInputErrorCode, UnknownErrorCode } from '~/class/Error'
 import {
-  ENV_APP_CORS,
-  ENV_SESSION_COOKIE_DOMAIN,
-  ENV_SESSION_COOKIE_PATH,
-  ENV_SESSION_COOKIE_SAME_SITE,
-  ENV_SESSION_COOKIE_SECURE,
-  ENV_SESSION_SECRET,
+  ENV_APP_CORS
 } from '~/config/env'
-import { SESSION_COOKIE_MAX_AGE, SESSION_COOKIE_NAME } from '~/config/session'
-import { initRedis } from '~/database/redis'
 import routes from '~/routes/_index'
 import zodValidatorCompiler from '~/utils/methods/common/zodValidatorCompiler'
 
-const RedisStore = createRedisStore(fastifySession as any)
 
 export const initApp = async () => {
   const app = Fastify({
@@ -35,9 +25,6 @@ export const initApp = async () => {
     disableRequestLogging: true,
   })
 
-  const redis = await initRedis()
-  app.log.info('Redis initialization complete')
-
   app.register(fastifyCors, {
     origin:
       ENV_APP_CORS === '*'
@@ -49,19 +36,6 @@ export const initApp = async () => {
   })
 
   app.register(fastifyCookie)
-  app.register(fastifySession, {
-    secret: ENV_SESSION_SECRET,
-    store: new RedisStore({ client: redis }) as any,
-    cookieName: SESSION_COOKIE_NAME,
-    cookie: {
-      httpOnly: true,
-      domain: ENV_SESSION_COOKIE_DOMAIN,
-      path: ENV_SESSION_COOKIE_PATH,
-      sameSite: ENV_SESSION_COOKIE_SAME_SITE,
-      secure: ENV_SESSION_COOKIE_SECURE,
-      maxAge: SESSION_COOKIE_MAX_AGE,
-    },
-  })
 
   app.register(fastifyHealthcheck, { healthcheckUrl: '/server-health', logLevel: 'warn' })
 
