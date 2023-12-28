@@ -1,11 +1,11 @@
 /* eslint-disable global-require */
 import { FastifyError, FastifyInstance, RegisterOptions } from 'fastify'
-import authen from '~/routes/authen/_index'
-import students from '~/routes/students/_index'
+import createStudent from '~/routes/students/createStudent'
+import getStudents from '~/routes/students/getStudents'
 
 export default (app: FastifyInstance, opts: RegisterOptions, done: (err?: FastifyError) => void) => {
-  app.register(authen)
-  app.register(students)
+  app.register(getStudents)
+  app.register(createStudent)
 
   done()
 }

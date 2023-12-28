@@ -9,32 +9,72 @@ generator client {
   output          = "../node_modules/.prisma/client"
 }
 
-model user {
-  userId   String @id @default(uuid())
-  username String
-  password String
+enum GENDER {
+  MALE
+  FEMALE
+}
 
-  firstName String
-  lastName  String
+enum SCHOOL_TYPE {
+  GOVERNMENT
+  CORPERATE
+}
 
-  email       String?
-  imgUrl      String?
-  phoneNumber String?
-
-  students student[]
-
-  @@unique([username])
+enum COURSE_STATUS {
+  OPEN
+  CLOSED
+  DEPRECATED
 }
 
 model student {
   studentId String @id @default(uuid())
+  firstName String
+  lastName  String
 
-  userId String
-  user   user   @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  schoolId String?
+  school   school? @relation(fields: [schoolId], references: [schoolId], onDelete: Cascade)
 
-  studentNo String
-  startDate DateTime
-  endDate   DateTime
+  gender               GENDER
+  email                String?
+  courseTeacherStudent courseTeacherStudent[]
 
-  attendCount Int
+  @@unique([firstName, lastName])
+}
+
+model school {
+  schoolId String      @id @default(uuid())
+  name     String
+  address  String
+  type     SCHOOL_TYPE
+
+  student student[]
+}
+
+model teacher {
+  teacherId            String                 @id @default(uuid())
+  firstName            String
+  lastName             String
+  courseTeacherStudent courseTeacherStudent[]
+}
+
+model course {
+  courseId String        @id @default(uuid())
+  name     String
+  code     String
+  credit   Float
+  status   COURSE_STATUS
+
+  courseTeacherStudent courseTeacherStudent[]
+}
+
+model courseTeacherStudent {
+  courseTeacherStudentId String @id @default(uuid())
+
+  courseId String
+  course   course @relation(fields: [courseId], references: [courseId])
+
+  teacherId String
+  teacher   teacher @relation(fields: [teacherId], references: [teacherId])
+
+  studentId String
+  student   student @relation(fields: [studentId], references: [studentId])
 }

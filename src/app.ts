@@ -4,12 +4,9 @@ import Fastify from 'fastify'
 import fastifyHealthcheck from 'fastify-healthcheck'
 import { ZodError } from 'zod'
 import { BaseError, InvalidInputErrorCode, UnknownErrorCode } from '~/class/Error'
-import {
-  ENV_APP_CORS
-} from '~/config/env'
+import { ENV_APP_CORS } from '~/config/env'
 import routes from '~/routes/_index'
 import zodValidatorCompiler from '~/utils/methods/common/zodValidatorCompiler'
-
 
 export const initApp = async () => {
   const app = Fastify({
