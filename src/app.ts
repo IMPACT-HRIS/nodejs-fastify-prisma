@@ -16,7 +16,7 @@ import {
 } from '~/config/env'
 import { SESSION_COOKIE_MAX_AGE, SESSION_COOKIE_NAME } from '~/config/session'
 import { initRedis } from '~/database/redis'
-import routes from '~/routes/_index'
+import routes from '~/modules/_index'
 import zodValidatorCompiler from '~/utils/methods/common/zodValidatorCompiler'
 
 const RedisStore = createRedisStore(fastifySession as any)

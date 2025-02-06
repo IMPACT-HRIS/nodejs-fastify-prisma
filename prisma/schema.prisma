@@ -9,15 +9,15 @@ generator client {
   output          = "../node_modules/.prisma/client"
 }
 
-model user {
-  user_id  String @id @default(uuid())
+model User {
+  userId   String @id @default(uuid())
   username String
   password String
 
-  email      String?
-  first_name String?
-  last_name  String?
-  img_url    String?
+  email     String?
+  firstName String?
+  lastName  String?
+  imgUrl    String?
 
   @@unique([username])
 }

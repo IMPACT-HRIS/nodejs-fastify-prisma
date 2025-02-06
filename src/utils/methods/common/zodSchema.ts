@@ -65,3 +65,4 @@ export const htmlSchema = z
   .transform((val) => sanitizeHtml(val, SANITIZE_HTML_OPTION_RICHTEXT_EDITOR))
 
 export const phoneNumberSchema = z.string().refine(validatePhone, 'Invalid phone Number')
+export const defaultStringSchema = z.string()
