@@ -18,6 +18,18 @@ model User {
   firstName String?
   lastName  String?
   imgUrl    String?
+  posts     Post[]
 
   @@unique([username])
+}
+
+model Post {
+  postId String  @id @default(uuid())
+  title  String
+  imgUrl String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [userId])
+
+  @@unique([title])
 }
