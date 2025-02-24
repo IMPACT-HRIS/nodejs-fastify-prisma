@@ -18,10 +18,12 @@ model User {
   firstName String?
   lastName  String?
   imgUrl    String?
+  posts     Post[]
 
   @@unique([username])
 }
 
+<<<<<<< HEAD
 enum TypeAnnouncement {
   internal
   external
@@ -43,4 +45,15 @@ model AnnouncementType {
   type             TypeAnnouncement
   annocementId     String
   announcement     Announcement     @relation(fields: [annocementId], references: [announcementId])
+=======
+model Post {
+  postId String  @id @default(uuid())
+  title  String
+  imgUrl String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [userId])
+
+  @@unique([title])
+>>>>>>> 2ee470e6e05c48a41e5f572a11b03fec599745e8
 }
