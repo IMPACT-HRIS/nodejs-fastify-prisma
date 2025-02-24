@@ -23,29 +23,6 @@ model User {
   @@unique([username])
 }
 
-<<<<<<< HEAD
-enum TypeAnnouncement {
-  internal
-  external
-}
-
-model Announcement {
-  announcementId   String             @id @default(uuid())
-  type             String
-  title            String
-  imageUrl         String
-  detail           String
-  pubulicDate      DateTime
-  endDate          DateTime
-  AnnouncementType AnnouncementType[]
-}
-
-model AnnouncementType {
-  announcementType String           @id @default(uuid())
-  type             TypeAnnouncement
-  annocementId     String
-  announcement     Announcement     @relation(fields: [annocementId], references: [announcementId])
-=======
 model Post {
   postId String  @id @default(uuid())
   title  String
@@ -55,5 +32,4 @@ model Post {
   user   User   @relation(fields: [userId], references: [userId])
 
   @@unique([title])
->>>>>>> 2ee470e6e05c48a41e5f572a11b03fec599745e8
 }
