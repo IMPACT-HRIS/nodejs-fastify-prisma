@@ -21,3 +21,26 @@ model User {
 
   @@unique([username])
 }
+
+enum TypeAnnouncement {
+  internal
+  external
+}
+
+model Announcement {
+  announcementId   String             @id @default(uuid())
+  type             String
+  title            String
+  imageUrl         String
+  detail           String
+  pubulicDate      DateTime
+  endDate          DateTime
+  AnnouncementType AnnouncementType[]
+}
+
+model AnnouncementType {
+  announcementType String           @id @default(uuid())
+  type             TypeAnnouncement
+  annocementId     String
+  announcement     Announcement     @relation(fields: [annocementId], references: [announcementId])
+}
